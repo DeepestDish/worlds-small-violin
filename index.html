@@ -32,7 +32,7 @@ function setup(){
   })
   
   nn.create('span').
-    content("click/tap to start")
+    content("click to start")
     .addTo('body')
   .css({
     position: 'absolute',
@@ -85,7 +85,7 @@ function move(){
   mouseX_new = nn.mouseX
   mousespeed = mouseX_new - mouseX_old
   mouseX_old = mouseX_new
-  let truespeed = Math.abs(mousespeed / 30) + 0.1
+  let truespeed = Math.abs(mousespeed / 30) + 0.05
   if (truespeed < 1)
   {
     music.volume = nn.lerp(music.volume, truespeed, 0.2)}
