@@ -46,7 +46,7 @@ function setup(){
 
 function start(){
   document.body.innerText = ""
-  nn.get('body').css({ backgroundColor: "navy"})
+  nn.get('body').css({ backgroundColor: "darkslategrey"})
   //VIOLIN
   nn.create('img')
   .set({
@@ -125,14 +125,16 @@ function animate(){
   requestAnimationFrame(animate)
 }
 //window.onscroll = function () { window.scrollTo(0, 0); };
-nn.on('load', start)
+nn.on('load', setup)
 nn.on('load', animate)
 
 nn.on('mousemove', move)
 nn.on('mousedown', bow)
 nn.on('mouseup', release)
 
-
+nn.on('touchmove', move)
+nn.on('touchstart', bow)
+nn.on('touchend', release)
 
   
 </script>
