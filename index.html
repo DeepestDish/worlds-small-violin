@@ -77,11 +77,16 @@ function move(){
   mouseX_new = nn.mouseX
   mousespeed = mouseX_new - mouseX_old
   mouseX_old = mouseX_new
-  let truespeed = Math.abs(mousespeed / 30)
-  music.volume = nn.lerp(music.volume, truespeed, 0.6)
+  let truespeed = Math.abs(mousespeed / 30) + 0.1
+  if (truespeed < 1)
+  {
+    music.volume = nn.lerp(music.volume, truespeed, 0.2)}
+  else{
+    music.volume = 1
+  }
   //PITCH
   let full_length = nn.height 
-  music.playbackRate = 1
+  music.playbackRate = 1 / ((nn.height * 1.5 - nn.mouseY) / (nn.height * 1.5))
 }
 
 function bow(){
