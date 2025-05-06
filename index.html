@@ -4,6 +4,7 @@
 /* global nn */
 
 const audio = 'violin_note_D.mp3'
+const audio2 = 'violin_d_release.mp3'
 let img = 'one_string_violino.png'
 
 let music
@@ -52,7 +53,6 @@ function start(){
     src: img,
     width: nn.height * 0.75,
     draggable: false,
-    //overflow: hidden
   })
   .css({
     position: 'fixed',
@@ -63,12 +63,20 @@ function start(){
   music = nn.create('audio')
   .set({
     src: audio,
-    controls: true,
-    //display: none
+    //controls: true,
   })
   .addTo('body')
   
   music.preservesPitch = false
+  //RELEASE SOUND
+  music2 = nn.create('audio')
+  .set({
+    src: audio2,
+    //controls: true,
+  })
+  .addTo('body')
+  
+  music2.preservesPitch = false
 }  
 
 function move(){
@@ -86,7 +94,10 @@ function move(){
   }
   //PITCH
   let full_length = nn.height 
-  music.playbackRate = 1 / ((nn.height * 1.5 - nn.mouseY) / (nn.height * 1.5))
+  let pitch = 1 / ((nn.height * 1.48 - nn.mouseY) / (nn.height * 1.48))
+  music.playbackRate = pitch
+  music2.playbackRate = pitch
+  music2.volume = music.volume
 }
 
 function bow(){
@@ -98,6 +109,7 @@ function bow(){
 function release(){
   playing = false
   music.pause()
+  music2.play()
 }
   
 function animate(){
@@ -105,16 +117,22 @@ function animate(){
     autokill_timer -= 1
   }
   else{
-    release()
+    if (playing){
+    release()}
   }
-  //console.log(autokill_timer)
+  
+  
   requestAnimationFrame(animate)
 }
 //window.onscroll = function () { window.scrollTo(0, 0); };
 nn.on('load', start)
+nn.on('load', animate)
+
 nn.on('mousemove', move)
 nn.on('mousedown', bow)
 nn.on('mouseup', release)
-nn.on('load', animate)
+
+
+
   
 </script>
