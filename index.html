@@ -2,35 +2,22 @@
 <script>
   
 /* global nn */
-const filename = 'swanky-guitar.mp3'
-
-let music
-
-async function remix() {
-  music.volume = nn.random(0.1, 0.5)
-  music.currentTime = nn.random(0, music.duration)
-  const time = nn.random(250, 500)
-  await nn.sleep(time)
-  remix()
-}
 
 function setup(){
-  music = nn.create('audio')
-  .set({
-    src: filename,
-    controls: true
+  nn.get('body').css({ backgroundColor: "black"})
+  nn.create('span').
+    content("World's Small Violin")
+    .addTo('body')
+  .css({
+    position: 'absolute',
+    top: (nn.height / 2),
+    left: (nn.width / 2),
+    color:"white",
+    fontSize: 100,
   })
-  .addTo('body')
-  .on('loadeddata', remix)
-}
-
-function animate(){
-  requestAnimationFrame(animate)
-  //console.log(music.currentTime)
-  //console.log(music.volume)
 }
 
 nn.on('load', setup)
-nn.on('load', animate)
+//nn.on('load', animate)
   
 </script>
