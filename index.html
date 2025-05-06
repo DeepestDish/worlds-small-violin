@@ -6,6 +6,14 @@
 const audio = 'violin_d_string.mp3'
 let img = 'one_string_violino.png'
 
+let music
+
+let mouseX_old = nn.mouseX
+
+let mouseX_new
+
+let mousespeed
+
 function setup(){
   nn.get('body').css({ backgroundColor: "black"})
   nn.create('span').
@@ -34,21 +42,51 @@ function setup(){
 
 function start(){
   document.body.innerText = ""
-  nn.get('body').css({ backgroundColor: "navy"})
+  nn.get('body').css({ backgroundColor: "white"})
+  //VIOLIN
   nn.create('img')
   .set({
     src: img,
-    width: nn.height * 0.75
+    width: nn.height * 0.75,
+    draggable: false,
+    //overflow: hidden
   })
   .css({
-    position: 'absolute',
-    top: -nn.height * 0.15
+    position: 'fixed',
+    top: -nn.height * 0.15,
   })
   .addTo('body')
-  
+  //SOUND
+  music = nn.create('audio')
+  .set({
+    src: audio,
+    controls: true,
+    //display: none
+  })
+  .addTo('body')
 }  
 
+function speedLog(){
+  //mousespeed = 5
+  mouseX_new = nn.mouseX
+  mousespeed = mouseX_new - mouseX_old
+  mouseX_old = mouseX_new
+  console.log(mousespeed)
+}
+
+async function bow(){
+  await music.play()
+}
+
+async function release(){
+  //while music.volume > 0:
+  //
+}
+//window.onscroll = function () { window.scrollTo(0, 0); };
 nn.on('load', start)
+nn.on('mousemove', speedLog)
+nn.on('mousedown', bow)
+nn.on('mouseup', release)
 //nn.on('load', animate)
   
 </script>
